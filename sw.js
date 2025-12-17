@@ -7,7 +7,7 @@ const urlsToCache = [
   '/icon.png'
 ];
 
-// Installer et mettre en cache
+// Installer et mettre en cache tous les fichiers essentiels
 self.addEventListener('install', event => {
   event.waitUntil(
     caches.open(CACHE_NAME)
@@ -29,15 +29,18 @@ self.addEventListener('activate', event => {
   self.clients.claim();
 });
 
-// Intercepter les requêtes
+// Intercepter toutes les requêtes
 self.addEventListener('fetch', event => {
   event.respondWith(
     caches.match(event.request)
       .then(response => {
-        if(response) return response; // retourne depuis cache
+        // Si présent dans le cache, retourne
+        if(response) return response;
+
+        // Sinon, essaye de fetcher
         return fetch(event.request)
           .catch(() => {
-            // fallback pour le HTML
+            // Si navigation (ouvrir la page) et offline, retourne index.html
             if(event.request.mode === 'navigate' || 
                (event.request.method === 'GET' && event.request.headers.get('accept').includes('text/html'))) {
               return caches.match('/index.html');
