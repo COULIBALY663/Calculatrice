@@ -167,3 +167,21 @@ button[onclick="clearLast()"] { background: #6d4c41; color: white; }
     font-size: 1.1em;
   }
 }
+.history-toggle {
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.history-toggle button {
+  padding: 10px 20px;
+  font-size: 1em;
+  background: #1976d2;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.history-toggle button:active {
+  transform: translateY(1px);
+}

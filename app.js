@@ -177,3 +177,11 @@ function afficherHistorique() {
   });
 }
 setMode("DEG"); // Mode par défaut
+function toggleHistory() {
+  const panel = document.getElementById("historyPanel");
+  if (panel.style.display === "none" || panel.style.display === "") {
+    panel.style.display = "block";
+  } else {
+    panel.style.display = "none";
+  }
+}
