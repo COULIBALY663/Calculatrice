@@ -185,3 +185,37 @@ button[onclick="clearLast()"] { background: #6d4c41; color: white; }
 .history-toggle button:active {
   transform: translateY(1px);
 }
+body, html {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  min-height: 100vh; /* utilisation min-height au lieu de height */
+  font-family: Arial, sans-serif;
+  background: #1e1e1e;
+  display: flex;
+  justify-content: center;
+  /* align-items: center; <-- on supprime centrer verticalement */
+  padding-top: 20px;  /* un peu de marge en haut */
+  padding-bottom: 20px;
+  box-sizing: border-box;
+  flex-direction: column;
+}
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+  width: 95%;
+  max-width: 400px;
+  margin: 0 auto;
+}
+@media (max-width: 400px) {
+  .calculator {
+    padding: 10px 15px;
+  }
+
+  #screen {
+    height: 50px;
+    font-size: 20px;
+  }
+}
