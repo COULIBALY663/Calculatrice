@@ -1,6 +1,6 @@
 {
   "name": "Calculatrice Scientifique",
-  "short_name": "CalcSci",
+  "short_name": "Calculatrice",
   "start_url": "index.html",
   "display": "standalone",
   "background_color": "#1e1e1e",
