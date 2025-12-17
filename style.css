@@ -1,4 +1,3 @@
-/* ===================== Global ===================== */
 body, html {
   margin: 0;
   padding: 0;
@@ -11,38 +10,37 @@ body, html {
   align-items: center;
 }
 
-/* ===================== App / Container ===================== */
 .app {
   width: 95%;
   max-width: 400px;
 }
 
-/* ===================== Calculatrice ===================== */
 .calculator {
   width: 100%;
   padding: 15px;
   border-radius: 12px;
   background: #2f2f2f;
-  box-shadow: 0 8px 15px rgba(0,0,0,0.7);
-}
-
-/* ===================== Écran ===================== */
-.screen-box {
-  background: #c7d6c1;
-  border-radius: 8px;
-  padding: 10px;
-  margin-bottom: 10px;
-  min-height: 80px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  gap: 10px;
+}
+
+.screen-box {
+  background: #c7d6c1;
+  border: 2px solid #6b7d66;
+  border-radius: 6px;
+  padding: 5px;
+  height: 120px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
   overflow-y: auto;
 }
 
-#screenHistory {
-  font-size: 0.9em;
+.screen-history {
   color: #444;
-  max-height: 30px;
+  font-size: 0.9em;
+  max-height: 50px;
   overflow-y: auto;
 }
 
@@ -53,7 +51,6 @@ body, html {
   color: #1f2a1f;
 }
 
-/* ===================== Mode DEG/RAD ===================== */
 .mode {
   display: flex;
   justify-content: space-between;
@@ -79,7 +76,6 @@ body, html {
   border-color: #00c853;
 }
 
-/* ===================== Boutons ===================== */
 .buttons {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -87,8 +83,8 @@ body, html {
 }
 
 .buttons button {
-  aspect-ratio: 1/1;
-  font-size: 1.2em;
+  aspect-ratio: 1 / 1;
+  font-size: 1.3em;
   border-radius: 8px;
   background: #3a3a3a;
   color: #f1f1f1;
@@ -101,18 +97,16 @@ body, html {
   transform: translateY(2px);
 }
 
-/* Couleurs spéciales */
 button[onclick="calculate()"] { background: #1976d2; color: white; }
 button[onclick="clearAll()"] { background: #b71c1c; color: white; }
 button[onclick="clearLast()"] { background: #6d4c41; color: white; }
 
-/* ===================== Responsive ===================== */
 @media (max-width: 400px) {
   #screen { font-size: 20px; }
-  .buttons button { font-size: 1.1em; }
+  .buttons button { font-size: 1.2em; }
 }
 
 @media (max-width: 320px) {
   #screen { font-size: 18px; }
-  .buttons button { font-size: 1em; }
+  .buttons button { font-size: 1.1em; }
 }
