@@ -4,21 +4,29 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>Calculatrice Scientifique</title>
+
   <link rel="stylesheet" href="style.css">
   <link rel="manifest" href="manifest.json">
 </head>
 <body>
 
 <div class="container">
-  <!-- Calculatrice -->
-  <div class="calculator">
-    <input type="text" id="screen" readonly value="0">
 
+  <div class="calculator">
+
+    <!-- ÉCRAN -->
+    <div class="screen-container">
+      <div class="screen-history" id="historyScreen"></div>
+      <input type="text" id="screen" readonly value="0">
+    </div>
+
+    <!-- MODE -->
     <div class="mode">
       <button id="btnDEG" onclick="setMode('DEG')">DEG</button>
       <button id="btnRAD" onclick="setMode('RAD')">RAD</button>
     </div>
 
+    <!-- BOUTONS -->
     <div class="buttons">
       <button onclick="clearAll()">AC</button>
       <button onclick="clearLast()">C</button>
@@ -55,26 +63,15 @@
       <button onclick="insertPi()">π</button>
       <button onclick="calculate()">=</button>
     </div>
-  </div>
 
-  <!-- Bouton Historique -->
-  <div class="history-toggle">
-    <button onclick="toggleHistory()">Historique</button>
-  </div>
-
-  <!-- Historique -->
-  <div class="history-panel" id="historyPanel" style="display:none;">
-    <h3>Historique</h3>
-    <ul id="historyList"></ul>
   </div>
 </div>
 
 <script src="app.js"></script>
+
 <script>
   if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('sw.js')
-      .then(() => console.log('Service Worker enregistré'))
-      .catch(err => console.log('Erreur Service Worker:', err));
+    navigator.serviceWorker.register('sw.js');
   }
 </script>
 
