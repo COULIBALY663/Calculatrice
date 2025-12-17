@@ -2,22 +2,20 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Calculatrice Scientifique</title>
-
   <link rel="stylesheet" href="style.css">
-  <link rel="manifest" href="manifest.json">
 </head>
 <body>
 
-<div class="container">
+<div class="app">
 
   <div class="calculator">
 
     <!-- ÉCRAN -->
-    <div class="screen-container">
-      <div class="screen-history" id="historyScreen"></div>
-      <input type="text" id="screen" readonly value="0">
+    <div class="screen-box">
+      <div id="screenHistory" class="screen-history"></div>
+      <div id="screen">0</div>
     </div>
 
     <!-- MODE -->
@@ -26,7 +24,7 @@
       <button id="btnRAD" onclick="setMode('RAD')">RAD</button>
     </div>
 
-    <!-- BOUTONS -->
+    <!-- TOUCHES -->
     <div class="buttons">
       <button onclick="clearAll()">AC</button>
       <button onclick="clearLast()">C</button>
@@ -65,15 +63,9 @@
     </div>
 
   </div>
+
 </div>
 
 <script src="app.js"></script>
-
-<script>
-  if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('sw.js');
-  }
-</script>
-
 </body>
 </html>

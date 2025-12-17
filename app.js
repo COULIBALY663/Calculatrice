@@ -1,123 +1,79 @@
-const screen = document.getElementById("screen");
-const historyScreen = document.getElementById("historyScreen");
-
+let screen = document.getElementById("screen");
+let screenHistory = document.getElementById("screenHistory");
 let mode = "DEG";
+const PI = 3.14159265359;
+
 let history = [];
 let resetScreen = false;
 let expressionInternal = "";
-const PI = Math.PI;
 
-/* ===== BASE ===== */
+// Ajouter un chiffre ou symbole
 function append(value) {
-  if (resetScreen) {
-    screen.value = "";
-    expressionInternal = "";
-    resetScreen = false;
-  }
-  if (screen.value === "0") screen.value = "";
+  if (resetScreen) { screen.value=""; expressionInternal=""; resetScreen=false; }
+  if(screen.value==="0") screen.value="";
   screen.value += value;
   expressionInternal += value;
 }
 
+// Effacer tout
 function clearAll() {
-  screen.value = "0";
-  expressionInternal = "";
-  history = [];
-  historyScreen.innerHTML = "";
+  screen.value="0";
+  expressionInternal="";
 }
 
+// Effacer dernier caractère
 function clearLast() {
-  screen.value = screen.value.slice(0, -1) || "0";
-  expressionInternal = expressionInternal.slice(0, -1);
+  if(screen.value.length>1) { screen.value=screen.value.slice(0,-1); expressionInternal=expressionInternal.slice(0,-1);}
+  else { screen.value="0"; expressionInternal=""; }
 }
 
-/* ===== MODE ===== */
+// Changer mode DEG/RAD
 function setMode(m) {
-  mode = m;
+  mode=m;
   document.getElementById("btnDEG").classList.remove("active");
   document.getElementById("btnRAD").classList.remove("active");
-  document.getElementById(m === "DEG" ? "btnDEG" : "btnRAD").classList.add("active");
+  if(m==="DEG") document.getElementById("btnDEG").classList.add("active");
+  else document.getElementById("btnRAD").classList.add("active");
 }
 
-/* ===== CALCUL ===== */
+// Calculer
 function calculate() {
   try {
-    let expr = expressionInternal
-      .replace(/π/g, PI)
-      .replace(/\^/g, "**");
-
-    let open = (expr.match(/\(/g) || []).length;
-    let close = (expr.match(/\)/g) || []).length;
-    expr += ")".repeat(open - close);
-
+    let expr = expressionInternal.replace(/π/g, PI).replace(/\^/g,"**");
+    let openParens = (expr.match(/\(/g)||[]).length;
+    let closeParens = (expr.match(/\)/g)||[]).length;
+    expr += ")".repeat(openParens - closeParens);
     let result = eval(expr);
+    if(Math.abs(result)<1e-10) result=0;
+    result=parseFloat(result.toFixed(10));
 
-    if (Math.abs(result) < 1e-10) result = 0;
-    result = parseFloat(result.toFixed(10));
-
+    // Historique
     history.push(`${screen.value} = ${result}`);
-    afficherHistorique();
+    updateHistory();
 
     screen.value = result;
     expressionInternal = result.toString();
-    resetScreen = true;
+    resetScreen=true;
   } catch {
-    screen.value = "Erreur";
-    resetScreen = true;
+    screen.value="Erreur";
+    expressionInternal="";
+    resetScreen=true;
   }
 }
 
-/* ===== FONCTIONS ===== */
-function insertSqrt() {
-  append("√(");
-  expressionInternal = expressionInternal.replace("√(", "Math.sqrt(");
+// Historique
+function updateHistory() {
+  screenHistory.innerHTML = history.slice(-3).join("<br>");
 }
 
-function sin() { addFunc("sin"); }
-function cos() { addFunc("cos"); }
-function tan() { addFunc("tan"); }
-function ln()  { addFunc("ln"); }
-function log() { addFunc("log"); }
+// Fonctions scientifiques
+function insertSqrt() { append("Math.sqrt("); }
+function sin() { append(mode==="DEG"?"Math.sin(Math.PI/180*":"Math.sin("); }
+function cos() { append(mode==="DEG"?"Math.cos(Math.PI/180*":"Math.cos("); }
+function tan() { append(mode==="DEG"?"Math.tan(Math.PI/180*":"Math.tan("); }
+function log() { append("Math.log10("); }
+function ln() { append("Math.log("); }
+function insertPi() { append("π"); }
+function appendExponent() { append("^"); }
 
-function addFunc(func) {
-  if (resetScreen) {
-    screen.value = "";
-    expressionInternal = "";
-    resetScreen = false;
-  }
-  screen.value += func + "(";
-
-  if (func === "sin")
-    expressionInternal += mode === "DEG" ? "Math.sin(Math.PI/180*" : "Math.sin(";
-  if (func === "cos")
-    expressionInternal += mode === "DEG" ? "Math.cos(Math.PI/180*" : "Math.cos(";
-  if (func === "tan")
-    expressionInternal += mode === "DEG" ? "Math.tan(Math.PI/180*" : "Math.tan(";
-  if (func === "ln")
-    expressionInternal += "Math.log(";
-  if (func === "log")
-    expressionInternal += "Math.log10(";
-}
-
-function insertPi() {
-  append("π");
-  expressionInternal += PI;
-}
-
-function appendExponent() {
-  append("^");
-}
-
-/* ===== HISTORIQUE ===== */
-function afficherHistorique() {
-  historyScreen.innerHTML = "";
-  history.slice(-10).forEach(item => {
-    const div = document.createElement("div");
-    div.textContent = item;
-    historyScreen.appendChild(div);
-  });
-  historyScreen.scrollTop = historyScreen.scrollHeight;
-}
-
-/* INIT */
 setMode("DEG");

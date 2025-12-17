@@ -1,11 +1,8 @@
-/* ===== GLOBAL ===== */
-* {
-  box-sizing: border-box;
-}
-
-html, body {
+/* ===================== Global ===================== */
+body, html {
   margin: 0;
   padding: 0;
+  width: 100%;
   height: 100%;
   font-family: Arial, sans-serif;
   background: #1e1e1e;
@@ -14,76 +11,75 @@ html, body {
   align-items: center;
 }
 
-/* ===== CONTAINER ===== */
-.container {
-  width: 100%;
-  max-width: 380px;
-  padding: 10px;
+/* ===================== App / Container ===================== */
+.app {
+  width: 95%;
+  max-width: 400px;
 }
 
-/* ===== CALCULATRICE ===== */
+/* ===================== Calculatrice ===================== */
 .calculator {
-  background: #2f2f2f;
+  width: 100%;
   padding: 15px;
-  border-radius: 14px;
+  border-radius: 12px;
+  background: #2f2f2f;
   box-shadow: 0 8px 15px rgba(0,0,0,0.7);
 }
 
-/* ===== ÉCRAN AVEC HISTORIQUE ===== */
-.screen-container {
+/* ===================== Écran ===================== */
+.screen-box {
   background: #c7d6c1;
-  border: 2px solid #6b7d66;
-  border-radius: 10px;
-  padding: 6px;
+  border-radius: 8px;
+  padding: 10px;
   margin-bottom: 10px;
+  min-height: 80px;
   display: flex;
   flex-direction: column;
-}
-
-/* Historique défilable */
-.screen-history {
-  max-height: 60px;
+  justify-content: space-between;
   overflow-y: auto;
-  font-size: 13px;
-  color: #2e3b2e;
-  text-align: right;
-  padding: 4px;
 }
 
-/* Résultat */
+#screenHistory {
+  font-size: 0.9em;
+  color: #444;
+  max-height: 30px;
+  overflow-y: auto;
+}
+
 #screen {
-  border: none;
-  background: transparent;
   font-size: 22px;
   font-weight: bold;
   text-align: right;
-  outline: none;
-  padding: 4px;
+  color: #1f2a1f;
 }
 
-/* ===== MODE DEG/RAD ===== */
+/* ===================== Mode DEG/RAD ===================== */
 .mode {
   display: flex;
-  gap: 8px;
+  justify-content: space-between;
   margin-bottom: 10px;
 }
 
 .mode button {
-  flex: 1;
-  padding: 8px 0;
-  border-radius: 6px;
-  border: none;
-  font-weight: bold;
+  width: 48%;
+  padding: 10px 0;
   background: #444;
   color: #eee;
+  border: 1px solid #222;
+  font-weight: bold;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
 }
 
 .mode button.active {
   background: #00c853;
   color: #000;
+  box-shadow: 0 0 6px #00e676, inset 0 0 4px rgba(255,255,255,0.8);
+  border-color: #00c853;
 }
 
-/* ===== BOUTONS ===== */
+/* ===================== Boutons ===================== */
 .buttons {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -91,45 +87,32 @@ html, body {
 }
 
 .buttons button {
-  aspect-ratio: 1 / 1;
-  border-radius: 10px;
-  border: none;
+  aspect-ratio: 1/1;
   font-size: 1.2em;
-  font-weight: bold;
+  border-radius: 8px;
   background: #3a3a3a;
-  color: #fff;
+  color: #f1f1f1;
+  border: 1px solid #1b1b1b;
+  font-weight: bold;
   cursor: pointer;
 }
 
 .buttons button:active {
-  transform: scale(0.97);
+  transform: translateY(2px);
 }
 
-/* Boutons spéciaux */
-button[onclick="calculate()"] {
-  background: #1976d2;
+/* Couleurs spéciales */
+button[onclick="calculate()"] { background: #1976d2; color: white; }
+button[onclick="clearAll()"] { background: #b71c1c; color: white; }
+button[onclick="clearLast()"] { background: #6d4c41; color: white; }
+
+/* ===================== Responsive ===================== */
+@media (max-width: 400px) {
+  #screen { font-size: 20px; }
+  .buttons button { font-size: 1.1em; }
 }
 
-button[onclick="clearAll()"] {
-  background: #b71c1c;
-}
-
-button[onclick="clearLast()"] {
-  background: #6d4c41;
-}
-
-/* ===== MOBILE ===== */
-@media (max-width: 480px) {
-  #screen {
-    font-size: 18px;
-  }
-
-  .screen-history {
-    max-height: 50px;
-    font-size: 12px;
-  }
-
-  .buttons button {
-    font-size: 1.1em;
-  }
+@media (max-width: 320px) {
+  #screen { font-size: 18px; }
+  .buttons button { font-size: 1em; }
 }
