@@ -181,4 +181,44 @@ body, html {
   overflow-y: auto;
   margin-top: 10px;
 }
+.buttons {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 6px; /* espace entre les boutons */
+}
+
+.buttons button {
+  width: 100%;       /* prend toute la largeur de sa colonne */
+  padding: 18px 0;   /* hauteur des boutons */
+  font-size: 1.2em;  /* taille du texte */
+  border-radius: 6px;
+  cursor: pointer;
+  background: #3a3a3a;
+  color: #f1f1f1;
+  border: 1px solid #1b1b1b;
+  font-weight: bold;
+}
+
+button:active {
+  transform: translateY(1px);
+}
+button[onclick="calculate()"] { background: #1976d2; color: white; }
+button[onclick="clearAll()"] { background: #b71c1c; color: white; }
+button[onclick="clearLast()"] { background: #6d4c41; color: white; }
+@media (max-width: 400px) {
+  .buttons button {
+    padding: 14px 0;  /* un peu plus petit pour tenir sur l’écran */
+    font-size: 1em;
+  }
+
+  #screen {
+    height: 50px;
+    font-size: 20px;
+  }
+
+  .calculator {
+    padding: 15px;
+  }
+}
+
 
