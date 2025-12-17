@@ -1,16 +1,19 @@
 let screen = document.getElementById("screen");
-let screenHistory = document.getElementById("screenHistory");
 let mode = "DEG";
-const PI = 3.14159265359;
+const PI = 3.14;
 
 let history = [];
+let historyList = document.getElementById("historyList");
 let resetScreen = false;
 let expressionInternal = "";
 
-// Ajouter un chiffre ou symbole
 function append(value) {
-  if (resetScreen) { screen.value = ""; expressionInternal = ""; resetScreen = false; }
-  if (screen.value === "0") screen.value = "";
+  if(resetScreen){ 
+    screen.value = ""; 
+    expressionInternal = ""; 
+    resetScreen = false; 
+  }
+  if(screen.value === "0") screen.value = "";
   screen.value += value;
   expressionInternal += value;
 }
@@ -34,31 +37,8 @@ function setMode(m) {
   mode = m;
   document.getElementById("btnDEG").classList.remove("active");
   document.getElementById("btnRAD").classList.remove("active");
-  document.getElementById(`btn${m}`).classList.add("active");
+  document.getElementById(m === "DEG" ? "btnDEG" : "btnRAD").classList.add("active");
 }
-
-function insertSqrt() { append("Math.sqrt("); screen.value += "√("; }
-function sin() { addFunc("sin"); }
-function cos() { addFunc("cos"); }
-function tan() { addFunc("tan"); }
-function log() { addFunc("log"); }
-function ln() { addFunc("ln"); }
-
-function addFunc(func) {
-  if(resetScreen){ screen.value=""; expressionInternal=""; resetScreen=false; }
-  if(screen.value === "0") screen.value = "";
-  screen.value += func + "(";
-  switch(func){
-    case "sin": expressionInternal += mode==="DEG" ? "Math.sin(Math.PI/180*" : "Math.sin("; break;
-    case "cos": expressionInternal += mode==="DEG" ? "Math.cos(Math.PI/180*" : "Math.cos("; break;
-    case "tan": expressionInternal += mode==="DEG" ? "Math.tan(Math.PI/180*" : "Math.tan("; break;
-    case "ln": expressionInternal += "Math.log("; break;
-    case "log": expressionInternal += "Math.log10("; break;
-  }
-}
-
-function insertPi() { append(PI); screen.value += "π"; }
-function appendExponent() { append("^"); }
 
 function calculate() {
   try {
@@ -68,12 +48,13 @@ function calculate() {
     expr += ")".repeat(openParens - closeParens);
 
     let result = eval(expr);
-    if(Math.abs(result)<1e-10) result = 0;
+    if(Math.abs(result) < 1e-10) result = 0;
     result = parseFloat(result.toFixed(10));
 
+    // Ajouter à l'historique
     history.push(`${screen.value} = ${result}`);
-    screenHistory.innerHTML = history.slice().reverse().join("<br>");
-    
+    afficherHistorique();
+
     screen.value = result;
     expressionInternal = result.toString();
     resetScreen = true;
@@ -82,6 +63,52 @@ function calculate() {
     expressionInternal = "";
     resetScreen = true;
   }
+}
+
+function afficherHistorique() {
+  historyList.innerHTML = "";
+  history.slice().reverse().forEach(item=>{
+    let li = document.createElement("li");
+    li.textContent = item;
+    li.onclick = ()=>{
+      let valeur = item.split("=").pop().trim();
+      screen.value = valeur;
+      expressionInternal = valeur;
+      resetScreen = true;
+    };
+    historyList.appendChild(li);
+  });
+}
+
+function insertSqrt() {
+  append("Math.sqrt(");
+  screen.value += "√(";
+}
+
+function sin() { addFunc("sin"); }
+function cos() { addFunc("cos"); }
+function tan() { addFunc("tan"); }
+function log() { addFunc("log"); }
+function ln() { addFunc("ln"); }
+
+function addFunc(func) {
+  switch(func){
+    case "sin": expressionInternal += mode==="DEG" ? "Math.sin(Math.PI/180*" : "Math.sin("; break;
+    case "cos": expressionInternal += mode==="DEG" ? "Math.cos(Math.PI/180*" : "Math.cos("; break;
+    case "tan": expressionInternal += mode==="DEG" ? "Math.tan(Math.PI/180*" : "Math.tan("; break;
+    case "ln": expressionInternal += "Math.log("; break;
+    case "log": expressionInternal += "Math.log10("; break;
+  }
+  screen.value += func + "(";
+}
+
+function insertPi() {
+  append(PI);
+  screen.value += "π";
+}
+
+function appendExponent() {
+  append("^");
 }
 
 setMode("DEG");
