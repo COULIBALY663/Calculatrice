@@ -5,24 +5,21 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Calculatrice Scientifique</title>
   <link rel="stylesheet" href="style.css">
+  <link rel="manifest" href="manifest.json">
 </head>
 <body>
 
 <div class="container">
-  
+
   <!-- Calculatrice -->
   <div class="calculator">
-
-    <!-- Écran -->
     <input type="text" id="screen" readonly value="0">
 
-    <!-- Mode DEG/RAD -->
     <div class="mode">
       <button id="btnDEG" onclick="setMode('DEG')">DEG</button>
       <button id="btnRAD" onclick="setMode('RAD')">RAD</button>
     </div>
 
-    <!-- Touches -->
     <div class="buttons">
       <button onclick="clearAll()">AC</button>
       <button onclick="clearLast()">C</button>
@@ -70,5 +67,13 @@
 </div>
 
 <script src="app.js"></script>
+<script>
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('sw.js')
+    .then(() => console.log('Service Worker enregistré'))
+    .catch(err => console.log('Erreur SW:', err));
+}
+</script>
+
 </body>
 </html>
