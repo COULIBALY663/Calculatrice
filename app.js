@@ -8,32 +8,13 @@ let resetScreen = false;
 let expressionInternal = "";
 let ANS = 0;
 
-// Fonction utilitaire pour multiplication implicite
-function addImplicitMultiplication(lastChar, nextValue){
-  if(!lastChar) return "";
-
-  // Si le dernier caractère est un chiffre, une parenthèse fermante, π ou ANS
-  if(/[0-9)π]/.test(lastChar)) {
-    // Et si le caractère suivant est chiffre, parenthèse ouvrante, π ou fonction
-    if(/^[0-9(π]/.test(nextValue) || /^(sin|cos|tan|log|ln|Math\.sqrt)/.test(nextValue)){
-      return "*";
-    }
-  }
-  return "";
-}
-
-// Ajouter un caractère ou chiffre
+// Ajouter un caractère ou chiffre (pas de multiplication implicite sauf pour π)
 function append(value){
   if(resetScreen){
     screen.textContent = "";
     expressionInternal = "";
     resetScreen = false;
   }
-
-  let last = expressionInternal.slice(-1);
-
-  expressionInternal += addImplicitMultiplication(last, value);
-  if(addImplicitMultiplication(last, value)) screen.textContent += "×";
 
   if(screen.textContent === "0") screen.textContent = "";
 
@@ -102,10 +83,13 @@ function insertPi(){
     resetScreen = false;
   }
 
-  let last = expressionInternal.slice(-1);
+  let lastChar = expressionInternal.slice(-1);
 
-  expressionInternal += addImplicitMultiplication(last, "π");
-  if(addImplicitMultiplication(last, "π")) screen.textContent += "×";
+  // Multiplication implicite automatique uniquement pour π
+  if(lastChar && /[0-9)]/.test(lastChar)){
+    screen.textContent += "×";
+    expressionInternal += "*";
+  }
 
   if(screen.textContent === "0") screen.textContent = "";
 
@@ -113,18 +97,13 @@ function insertPi(){
   expressionInternal += "π";
 }
 
-// Insérer √ avec multiplication implicite
+// Insérer √ avec multiplication implicite uniquement pour π avant
 function insertSqrt(){
   if(resetScreen){
     screen.textContent = "";
     expressionInternal = "";
     resetScreen = false;
   }
-
-  let last = expressionInternal.slice(-1);
-
-  expressionInternal += addImplicitMultiplication(last, "Math.sqrt");
-  if(addImplicitMultiplication(last, "Math.sqrt")) screen.textContent += "×";
 
   if(screen.textContent === "0") screen.textContent = "";
 
@@ -145,11 +124,6 @@ function addFunc(func){
     expressionInternal = "";
     resetScreen = false;
   }
-
-  let last = expressionInternal.slice(-1);
-
-  expressionInternal += addImplicitMultiplication(last, func);
-  if(addImplicitMultiplication(last, func)) screen.textContent += "×";
 
   if(screen.textContent === "0") screen.textContent = "";
 
@@ -217,9 +191,7 @@ function insertANS(){
 
   let last = expressionInternal.slice(-1);
 
-  expressionInternal += addImplicitMultiplication(last, "ANS");
-  if(addImplicitMultiplication(last, "ANS")) screen.textContent += "×";
-
+  // Pas de multiplication implicite pour ANS
   if(screen.textContent === "0") screen.textContent = "";
 
   screen.textContent += "ANS";
