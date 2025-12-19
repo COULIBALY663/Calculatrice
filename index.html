@@ -13,7 +13,9 @@
 
   <!-- Calculatrice -->
   <div class="calculator">
-    <input type="text" id="screen" readonly value="0">
+
+    <!-- ÉCRAN -->
+    <div id="screen" class="screen">0</div>
 
     <div class="mode">
       <button id="btnDEG" onclick="setMode('DEG')">DEG</button>
@@ -59,7 +61,7 @@
   </div>
 
   <!-- Historique -->
-  <div class="history-panel" id="historyPanel">
+  <div class="history-panel">
     <h3>Historique</h3>
     <ul id="historyList"></ul>
   </div>
