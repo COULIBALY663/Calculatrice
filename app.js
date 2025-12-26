@@ -1,10 +1,10 @@
-// ===== SERVICE WORKER =====
+/* ===== SERVICE WORKER =====
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
     navigator.serviceWorker.register('./service-worker.js');
   });
 }
-
+*/
 // ===== VARIABLES =====
 let screen = document.getElementById("screen");
 let historyList = document.getElementById("historyList");
