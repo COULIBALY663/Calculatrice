@@ -10,6 +10,19 @@ let history = [];
 let resetScreen = false;
 let expressionInternal = "";
 
+// ===== ENREGISTREMENT DU SERVICE WORKER =====
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/service-worker.js')
+      .then(registration => {
+        console.log('Service Worker enregistré avec succès:', registration);
+      })
+      .catch(error => {
+        console.log('Erreur lors de l’enregistrement du Service Worker:', error);
+      });
+  });
+}
+
 // ===== AJOUT CARACTÈRE =====
 function append(value){
   if(resetScreen){
@@ -150,7 +163,6 @@ function addFunc(func){
 
   let lastChar = expressionInternal.slice(-1);
 
-  // 🔥 MULTIPLICATION IMPLICITE : 2sin → 2×sin
   if(lastChar && /[0-9)π]/.test(lastChar)){
     screen.textContent += "×";
     expressionInternal += "*";
