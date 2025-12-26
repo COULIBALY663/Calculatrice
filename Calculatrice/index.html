@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calculatrice Scientifique</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container">
+
+  <!-- Calculatrice -->
+  <div class="calculator">
+
+    <!-- ÉCRAN -->
+    <div id="screen" class="screen">0</div>
+
+    <div class="mode">
+      <button id="btnDEG" onclick="setMode('DEG')">DEG</button>
+      <button id="btnRAD" onclick="setMode('RAD')">RAD</button>
+    </div>
+
+    <div class="buttons">
+      <button onclick="clearAll()">AC</button>
+      <button onclick="clearLast()">C</button>
+      <button onclick="append('(')">(</button>
+      <button onclick="append(')')">)</button>
+
+      <button onclick="insertSqrt()">√</button>
+      <button onclick="sin()">sin</button>
+      <button onclick="cos()">cos</button>
+      <button onclick="tan()">tan</button>
+
+      <button onclick="log()">log</button>
+      <button onclick="ln()">ln</button>
+      <button onclick="appendExponent()">^</button>
+      <button onclick="append('/')">÷</button>
+
+      <button onclick="append('7')">7</button>
+      <button onclick="append('8')">8</button>
+      <button onclick="append('9')">9</button>
+      <button onclick="append('*')">×</button>
+
+      <button onclick="append('4')">4</button>
+      <button onclick="append('5')">5</button>
+      <button onclick="append('6')">6</button>
+      <button onclick="append('-')">−</button>
+
+      <button onclick="append('1')">1</button>
+      <button onclick="append('2')">2</button>
+      <button onclick="append('3')">3</button>
+      <button onclick="append('+')">+</button>
+
+      <button onclick="append('0')">0</button>
+      <button onclick="append('.')">.</button>
+      <button onclick="insertPi()">π</button>
+      <button onclick="calculate()">=</button>
+    </div>
+  </div>
+
+  <!-- Historique -->
+  <div class="history-panel">
+    <h3>Historique</h3>
+    <ul id="historyList"></ul>
+  </div>
+
+</div>
+
+<script src="app.js"></script>
+
+</body>
+</html>
