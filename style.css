@@ -70,10 +70,14 @@ body {
 
 /* HISTORIQUE */
 
- /* ===== HISTORIQUE ===== */
+ /* HISTORIQUE – correction finale */
+.history-panel,
+.history-panel * {
+  color: #000000 !important;          /* texte noir pour tout l’historique */
+}
+
 .history-panel {
-  background-color: #ffffff !important; /* fond blanc */
-  color: #000000 !important;            /* texte noir par défaut */
+  background-color: #ffffff !important;
   width: 340px;
   max-width: 95%;
   max-height: 250px;
@@ -87,18 +91,16 @@ body {
 .history-panel h5 {
   font-weight: bold;
   margin-bottom: 8px;
-  color: #000000 !important; /* titre en noir */
 }
 
 .history-panel li {
   padding: 6px 8px;
   border-radius: 6px;
   margin-bottom: 4px;
-  background-color: #f1f1f1 !important; /* légèrement gris */
-  color: #000000 !important;            /* texte noir forcé */
+  background-color: #f1f1f1 !important;
   cursor: pointer;
 }
 
 .history-panel li:hover {
-  background-color: #e0e0e0 !important; /* gris légèrement plus foncé au hover */
+  background-color: #e0e0e0 !important;
 }
