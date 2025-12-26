@@ -1,5 +1,4 @@
-/* ===== BASE ===== */
-html, body {
+body, html {
   margin: 0;
   padding: 0;
   width: 100%;
@@ -9,66 +8,56 @@ html, body {
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  box-sizing: border-box;
+  padding-top: 20px;
 }
 
-*, *::before, *::after {
-  box-sizing: inherit;
-}
-
-/* ===== CONTENEUR ===== */
 .container {
   display: flex;
-  gap: 15px;
+  gap: 20px;
   flex-wrap: wrap;
   justify-content: center;
-  max-width: 800px;
+  max-width: 900px;
   width: 100%;
-  height: 100%;
 }
 
-/* ===== CALCULATRICE ===== */
+/* Calculatrice */
 .calculator {
   background: #2f2f2f;
-  padding: 12px;
+  padding: 15px;
   border-radius: 10px;
-  width: 300px;
-  box-shadow: 0 6px 12px rgba(0,0,0,0.6);
+  width: 350px;
+  box-shadow: 0 8px 15px rgba(0,0,0,0.7);
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-/* ===== ÉCRAN ===== */
+/* Écran */
 #screen {
   width: 100%;
-  min-height: 50px;
+  height: 55px;
   background: #c7d6c1;
   border: 2px solid #6b7d66;
   border-radius: 5px;
-  font-size: 1.5em;
+  font-size: 22px;
   font-weight: bold;
   text-align: right;
-  padding: 6px;
-  margin-bottom: 10px;
+  padding: 8px;
+  margin-bottom: 12px;
   box-shadow: inset 0 2px 3px rgba(0,0,0,0.3);
-  word-wrap: break-word;
-  overflow-wrap: break-word;
-  overflow-x: hidden;
-  user-select: none;
 }
 
-/* ===== MODE DEG / RAD ===== */
+/* Mode DEG/RAD */
 .mode {
   display: flex;
   justify-content: space-between;
   width: 100%;
-  margin-bottom: 8px;
+  margin-bottom: 10px;
 }
 
 .mode button {
   width: 48%;
-  padding: 8px 0;
+  padding: 10px 0;
   background: #444;
   color: #eee;
   border: 1px solid #222;
@@ -85,63 +74,49 @@ html, body {
   border-color: #00c853;
 }
 
-/* ===== BOUTONS ===== */
+/* Boutons */
 .buttons {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 5px;
+  gap: 6px;
   width: 100%;
 }
 
 .buttons button {
   aspect-ratio: 1 / 1;
-  font-size: 1.2em;
-  border-radius: 6px;
+  font-size: 1.3em;
+  border-radius: 8px;
   background: #3a3a3a;
   color: #f1f1f1;
   border: 1px solid #1b1b1b;
   font-weight: bold;
   cursor: pointer;
   transition: transform 0.1s ease;
-  min-width: 40px;
-  user-select: none;
 }
 
 .buttons button:active {
   transform: translateY(2px);
 }
 
-button[onclick="calculate()"] {
-  background: #1976d2;
-  color: white;
-}
+button[onclick="calculate()"] { background: #1976d2; color: white; }
+button[onclick="clearAll()"] { background: #b71c1c; color: white; }
+button[onclick="clearLast()"] { background: #6d4c41; color: white; }
 
-button[onclick="clearAll()"] {
-  background: #b71c1c;
-  color: white;
-}
-
-button[onclick="clearLast()"] {
-  background: #6d4c41;
-  color: white;
-}
-
-/* ===== HISTORIQUE ===== */
+/* Historique */
 .history-panel {
-  width: 250px;
-  max-height: 400px;
+  width: 300px;
+  max-height: 500px;
   overflow-y: auto;
   background: #262626;
   border: 1px solid #111;
   border-radius: 8px;
-  padding: 8px;
-  -webkit-overflow-scrolling: touch;
+  padding: 10px;
 }
 
 .history-panel h3 {
   color: #cfd8dc;
   text-align: center;
-  margin: 0 0 8px 0;
+  margin: 0 0 10px 0;
 }
 
 .history-panel ul {
@@ -152,7 +127,7 @@ button[onclick="clearLast()"] {
 
 .history-panel li {
   color: #e0e0e0;
-  padding: 5px;
+  padding: 6px;
   border-bottom: 1px solid #333;
   cursor: pointer;
 }
@@ -161,55 +136,28 @@ button[onclick="clearLast()"] {
   background: #37474f;
 }
 
-/* ===== RESPONSIVE MOBILE ===== */
+/* Responsive */
 @media (max-width: 600px) {
-  html, body {
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-  }
-
   .container {
     flex-direction: column;
-    width: 100%;
-    height: 100%;
-    gap: 10px;
-    justify-content: flex-start;
     align-items: center;
   }
 
-  .calculator {
-    width: 100%;
-    border-radius: 0;
-    padding: 10px;
-    box-shadow: none;
-  }
-
-  #screen {
-    font-size: 2em;
-    min-height: 80px;
-    margin-bottom: 15px;
-  }
-
-  .buttons button {
-    font-size: 1.3em;
-  }
-
   .history-panel {
-    width: 95%;
+    width: 90%;
     max-height: 200px;
-    display: block;
+    margin-top: 15px;
   }
-}
 
-@media (max-width: 400px) {
+  .calculator {
+    width: 90%;
+  }
+
   #screen {
-    font-size: 1.8em;
-    min-height: 70px;
+    font-size: 20px;
   }
 
   .buttons button {
-    font-size: 1.2em;
+    font-size: 1.1em;
   }
 }
