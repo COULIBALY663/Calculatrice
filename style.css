@@ -1,46 +1,98 @@
-body { margin:0; padding:0; font-family: Arial, sans-serif; }
+* {
+  box-sizing: border-box;
+}
 
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  background: #e5e7eb; /* gris clair mat */
+}
+
+/* CONTAINER */
+.calculator {
+  background: #f9fafb;
+  border-radius: 16px;
+  padding: 12px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+/* ÉCRAN */
 .screen {
-  width: 100%;
-  height: 60px;
-  background: #c7d6c1;
-  font-size: 24px;
-  font-weight: bold;
+  height: 80px;
+  background: #ffffff;
+  color: #000000;
+  font-size: 34px;
+  font-weight: 700;
   text-align: right;
-  padding: 10px;
-  border-radius: 6px;
+  padding: 14px;
+  border-radius: 12px;
+  border: 2px solid #111827;
+}
+
+/* GRILLE */
+.d-grid.gap-2 {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+}
+
+/* BOUTONS */
+.buttons button {
+  height: 60px;
+  font-size: 20px;
+  font-weight: 600;
+  border-radius: 12px;
+  border: 2px solid #111827;
+  background: #ffffff;
+  color: #000000;
+}
+
+/* ACTION */
+.buttons button:active {
+  background: #d1d5db;
+}
+
+/* OPÉRATEURS */
+.buttons button:nth-child(4n),
+.buttons button:last-child {
+  background: #fde047; /* jaune lisible soleil */
+  border-color: #ca8a04;
   color: #000;
 }
 
-.buttons button {
-  height: 55px;
-  font-size: 18px;
-  background: #3a3a3a;
-  color: white;
-  border-radius: 6px;
-  border: none;
-  width: 100%;
-}
-
-.buttons button:hover { background: #4a4a4a; }
-
-.history-panel {
-  background: #262626;
-  color: white;
-  max-height: 420px;
-  overflow-y: auto;
-  padding: 10px;
+/* BOUTON MODE */
+#btnMode {
+  background: #111827;
+  color: #ffffff;
   border-radius: 10px;
+  font-weight: 700;
 }
 
-.history-panel li { padding: 6px; cursor: pointer; }
-.history-panel li:hover { background-color: #3a3a3a; border-radius: 4px; }
+/* HISTORIQUE */
+.history-panel {
+  background: #ffffff;
+  border-radius: 14px;
+  margin-top: 12px;
+  border: 2px solid #111827;
+}
 
-#btnMode { min-width: 80px; }
+.history-panel h5 {
+  color: #000;
+  font-weight: bold;
+}
 
+.history-panel li {
+  padding: 8px;
+  border-radius: 8px;
+}
+
+.history-panel li:hover {
+  background: #e5e7eb;
+}
+
+/* MOBILE */
 @media (max-width: 768px) {
-  .calculator { width: 100% !important; border-radius: 0; }
-  .history-panel { width: 100% !important; max-height: 200px; border-radius: 0; }
+  .calculator {
+    border-radius: 0;
+  }
 }
-
-.d-grid.gap-2 { display: grid !important; grid-template-columns: repeat(4, 1fr) !important; gap: 6px !important; }
