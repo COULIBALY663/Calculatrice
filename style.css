@@ -1,24 +1,5 @@
-/* ===== RESET & BASE ===== */
-* {
-  box-sizing: border-box;
-  font-family: Arial, sans-serif;
-}
+body { margin:0; padding:0; font-family: Arial, sans-serif; }
 
-body {
-  margin: 0;
-  padding: 0;
-  background: #1e1e1e;
-  color: white;
-}
-
-/* ===== CALCULATRICE ===== */
-.calculator {
-  background: #2f2f2f;
-  padding: 12px;
-  border-radius: 10px;
-}
-
-/* Écran */
 .screen {
   width: 100%;
   height: 60px;
@@ -28,18 +9,9 @@ body {
   text-align: right;
   padding: 10px;
   border-radius: 6px;
-  margin-bottom: 10px;
   color: #000;
 }
 
-/* Mode DEG / RAD */
-#btnDEG.active,
-#btnRAD.active {
-  background-color: #00c853 !important;
-  color: #000 !important;
-}
-
-/* Boutons calculatrice */
 .buttons button {
   height: 55px;
   font-size: 18px;
@@ -50,11 +22,8 @@ body {
   width: 100%;
 }
 
-.buttons button:hover {
-  background: #4a4a4a;
-}
+.buttons button:hover { background: #4a4a4a; }
 
-/* Historique */
 .history-panel {
   background: #262626;
   color: white;
@@ -64,40 +33,14 @@ body {
   border-radius: 10px;
 }
 
-.history-panel li {
-  padding: 6px;
-  cursor: pointer;
-}
+.history-panel li { padding: 6px; cursor: pointer; }
+.history-panel li:hover { background-color: #3a3a3a; border-radius: 4px; }
 
-.history-panel li:hover {
-  background-color: #3a3a3a;
-  border-radius: 4px;
-}
+#btnMode { min-width: 80px; }
 
-/* ===== PWA / APK Buttons ===== */
-.btn-outline-info, .btn-success {
-  font-weight: bold;
-}
-
-/* ===== RESPONSIVE POUR MOBILE ===== */
 @media (max-width: 768px) {
-  .calculator {
-    width: 100% !important;
-    height: auto;
-    border-radius: 0;
-  }
-
-  .history-panel {
-    width: 100% !important;
-    max-height: 200px;
-    border-radius: 0;
-    margin-top: 10px;
-  }
+  .calculator { width: 100% !important; border-radius: 0; }
+  .history-panel { width: 100% !important; max-height: 200px; border-radius: 0; }
 }
 
-/* Ajustement boutons grid pour Bootstrap */
-.d-grid.gap-2 {
-  display: grid !important;
-  grid-template-columns: repeat(4, 1fr) !important;
-  gap: 6px !important;
-}
+.d-grid.gap-2 { display: grid !important; grid-template-columns: repeat(4, 1fr) !important; gap: 6px !important; }

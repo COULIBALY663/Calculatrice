@@ -4,101 +4,80 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>Calculatrice Scientifique</title>
-
-  <!-- Bootstrap CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-
-  <!-- Manifest PWA -->
-  <link rel="manifest" href="manifest.json?v=2">
-
-  <!-- CSS personnalisé -->
   <link rel="stylesheet" href="style.css">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#1e1e1e">
 </head>
 <body class="bg-dark text-white">
 
 <div class="container my-3">
-  <div class="row g-3">
 
-    <!-- Calculatrice -->
-    <div class="col-12 col-md-8">
-      <div class="calculator p-3 rounded bg-secondary">
+  <!-- Calculatrice -->
+  <div class="calculator bg-secondary p-3 rounded">
 
-        <!-- Écran -->
-        <div id="screen" class="screen bg-light text-dark mb-3 p-2 rounded">0</div>
+    <!-- Écran -->
+    <div id="screen" class="screen mb-2">0</div>
 
-        <!-- Mode DEG / RAD -->
-        <div class="d-flex gap-2 mb-3">
-          <button id="btnDEG" class="btn btn-outline-success flex-fill" onclick="setMode('DEG')">DEG</button>
-          <button id="btnRAD" class="btn btn-outline-success flex-fill" onclick="setMode('RAD')">RAD</button>
-        </div>
-
-        <!-- Boutons calculatrice -->
-        <div class="d-grid gap-2" style="grid-template-columns: repeat(4, 1fr); display:grid;">
-          <button class="btn btn-dark" onclick="clearAll()">AC</button>
-          <button class="btn btn-dark" onclick="clearLast()">C</button>
-          <button class="btn btn-dark" onclick="append('(')">(</button>
-          <button class="btn btn-dark" onclick="append(')')">)</button>
-
-          <button class="btn btn-dark" onclick="insertSqrt()">√</button>
-          <button class="btn btn-dark" onclick="sin()">sin</button>
-          <button class="btn btn-dark" onclick="cos()">cos</button>
-          <button class="btn btn-dark" onclick="tan()">tan</button>
-
-          <button class="btn btn-dark" onclick="log()">log</button>
-          <button class="btn btn-dark" onclick="ln()">ln</button>
-          <button class="btn btn-dark" onclick="appendExponent()">^</button>
-          <button class="btn btn-dark" onclick="append('/')">÷</button>
-
-          <button class="btn btn-dark" onclick="append('7')">7</button>
-          <button class="btn btn-dark" onclick="append('8')">8</button>
-          <button class="btn btn-dark" onclick="append('9')">9</button>
-          <button class="btn btn-dark" onclick="append('*')">×</button>
-
-          <button class="btn btn-dark" onclick="append('4')">4</button>
-          <button class="btn btn-dark" onclick="append('5')">5</button>
-          <button class="btn btn-dark" onclick="append('6')">6</button>
-          <button class="btn btn-dark" onclick="append('-')">−</button>
-
-          <button class="btn btn-dark" onclick="append('1')">1</button>
-          <button class="btn btn-dark" onclick="append('2')">2</button>
-          <button class="btn btn-dark" onclick="append('3')">3</button>
-          <button class="btn btn-dark" onclick="append('+')">+</button>
-
-          <button class="btn btn-dark" onclick="append('0')">0</button>
-          <button class="btn btn-dark" onclick="append('.')">.</button>
-          <button class="btn btn-dark" onclick="insertPi()">π</button>
-          <button class="btn btn-success" onclick="calculate()">=</button>
-        </div>
-
-        <!-- Boutons Installer PWA / Télécharger APK -->
-        <div class="d-flex flex-column gap-2 mt-3">
-          <button class="btn btn-outline-info" onclick="alert('Pour installer sur mobile, utilisez Ajouter à l’écran d\'accueil')">
-            Installer l’application (PWA)
-          </button>
-          <a href="Calculatrice.apk" download class="btn btn-success text-dark text-center">
-            Télécharger l’application (APK)
-          </a>
-        </div>
-
+    <!-- Bouton mode unique et checkbox historique -->
+    <div class="d-flex justify-content-between align-items-center mb-2">
+      <button id="btnMode" class="btn btn-outline-success flex-fill me-2" onclick="toggleMode()">
+        DEG
+      </button>
+      <div class="form-check text-white">
+        <input class="form-check-input" type="checkbox" value="" id="toggleHistory" checked onclick="toggleHistory()">
+        <label class="form-check-label" for="toggleHistory">Afficher l'historique</label>
       </div>
     </div>
 
-    <!-- Historique -->
-    <div class="col-12 col-md-4">
-      <div class="history-panel p-3 rounded bg-dark text-white">
-        <h5>Historique</h5>
-        <ul id="historyList" class="list-group list-group-flush"></ul>
-      </div>
-    </div>
+    <!-- Boutons de la calculatrice -->
+    <div class="buttons d-grid gap-2">
+      <button onclick="clearAll()">AC</button>
+      <button onclick="clearLast()">C</button>
+      <button onclick="append('(')">(</button>
+      <button onclick="append(')')">)</button>
 
+      <button onclick="insertSqrt()">√</button>
+      <button onclick="sin()">sin</button>
+      <button onclick="cos()">cos</button>
+      <button onclick="tan()">tan</button>
+
+      <button onclick="log()">log</button>
+      <button onclick="ln()">ln</button>
+      <button onclick="appendExponent()">^</button>
+      <button onclick="append('/')">÷</button>
+
+      <button onclick="append('7')">7</button>
+      <button onclick="append('8')">8</button>
+      <button onclick="append('9')">9</button>
+      <button onclick="append('*')">×</button>
+
+      <button onclick="append('4')">4</button>
+      <button onclick="append('5')">5</button>
+      <button onclick="append('6')">6</button>
+      <button onclick="append('-')">−</button>
+
+      <button onclick="append('1')">1</button>
+      <button onclick="append('2')">2</button>
+      <button onclick="append('3')">3</button>
+      <button onclick="append('+')">+</button>
+
+      <button onclick="append('0')">0</button>
+      <button onclick="append('.')">.</button>
+      <button onclick="insertPi()">π</button>
+      <button onclick="calculate()">=</button>
+    </div>
   </div>
+
+  <!-- Historique -->
+  <div class="history-panel mt-3">
+    <h5>Historique</h5>
+    <ul id="historyList"></ul>
+  </div>
+
 </div>
 
-<!-- JS Calculatrice -->
 <script src="app.js"></script>
-
-<!-- Bootstrap JS (optionnel) -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-
 </body>
 </html>
