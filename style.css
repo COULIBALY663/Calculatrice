@@ -1,146 +1,110 @@
-/* ===== RESET ===== */
+/* RESET */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-/* ===== BASE ===== */
 html, body {
   width: 100%;
   height: 100%;
-  background: #1e1e1e;
+  background: #121212;
   font-family: Arial, sans-serif;
+  overflow: hidden;
 }
 
-/* ===== CONTAINER ===== */
+/* CONTENEUR PRINCIPAL */
 .container {
   display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  gap: 15px;
-  width: 100%;
-  min-height: 100vh;
-  padding: 10px;
+  width: 100vw;
+  height: 100vh;
 }
 
-/* ===== CALCULATRICE (PC PAR DÉFAUT) ===== */
+/* CALCULATRICE */
 .calculator {
-  background: #2f2f2f;
-  width: 300px;
+  background: #2b2b2b;
+  width: 360px;
   padding: 12px;
-  border-radius: 12px;
   display: flex;
   flex-direction: column;
-  box-shadow: 0 8px 16px rgba(0,0,0,0.6);
+  border-radius: 12px;
 }
 
-/* ===== ÉCRAN ===== */
-#screen {
-  background: #c7d6c1;
-  border: 2px solid #6b7d66;
-  border-radius: 6px;
-  min-height: 55px;
-  padding: 8px;
-  font-size: 1.6em;
-  font-weight: bold;
-  text-align: right;
+/* ÉCRAN */
+.screen {
+  background: #cfdac8;
+  color: #000;
+  font-size: 28px;
+  padding: 12px;
   margin-bottom: 10px;
-  overflow-wrap: break-word;
+  text-align: right;
+  border-radius: 6px;
 }
 
-/* ===== MODE ===== */
+/* MODE DEG / RAD */
 .mode {
   display: flex;
   gap: 8px;
-  margin-bottom: 8px;
+  margin-bottom: 10px;
 }
 
 .mode button {
   flex: 1;
   padding: 8px;
-  border-radius: 6px;
   border: none;
-  font-weight: bold;
+  border-radius: 6px;
   background: #444;
-  color: #eee;
+  color: #fff;
 }
 
-.mode button.active {
-  background: #00c853;
-  color: #000;
-}
-
-/* ===== TOUCHES ===== */
+/* BOUTONS */
 .buttons {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 6px;
+  gap: 8px;
 }
 
-.buttons button {
-  aspect-ratio: 1 / 1;
-  border-radius: 6px;
+button {
+  padding: 14px;
+  font-size: 16px;
   border: none;
-  font-size: 1.2em;
-  font-weight: bold;
+  border-radius: 6px;
   background: #3a3a3a;
   color: #fff;
 }
 
-button[onclick="calculate()"] { background: #1976d2; }
-button[onclick="clearAll()"] { background: #b71c1c; }
-button[onclick="clearLast()"] { background: #6d4c41; }
+button:active {
+  background: #555;
+}
 
-/* ===== HISTORIQUE (PC) ===== */
+/* HISTORIQUE */
 .history-panel {
-  background: #262626;
-  width: 260px;
-  max-height: 520px;
+  flex: 1;
+  background: #1a1a1a;
+  color: #fff;
   padding: 10px;
-  border-radius: 12px;
   overflow-y: auto;
 }
 
-.history-panel h3 {
-  color: #cfd8dc;
-  text-align: center;
-  margin-bottom: 8px;
-}
+/* ========================= */
+/* 📱 MODE MOBILE (PLEIN ÉCRAN) */
+/* ========================= */
 
-.history-panel li {
-  color: #e0e0e0;
-  padding: 6px;
-  border-bottom: 1px solid #333;
-  cursor: pointer;
-}
-
-/* ===== 📱 MOBILE : PLEIN ÉCRAN ===== */
 @media (max-width: 768px) {
 
   .container {
     flex-direction: column;
-    align-items: center;
-    padding: 0;
-    width: 100%;
+    width: 100vw;
+    height: 100vh;
   }
 
   .calculator {
-    width: 100%;          /* 🔥 LA CLÉ */
-    max-width: 100%;
+    width: 100vw;
+    height: 100vh;
     border-radius: 0;
-    box-shadow: none;
-  }
-
-  #screen {
-    font-size: 2em;
-    min-height: 80px;
   }
 
   .history-panel {
-    width: 100%;
-    max-width: 100%;
-    max-height: 220px;
-    border-radius: 0;
+    display: none;
   }
 }
