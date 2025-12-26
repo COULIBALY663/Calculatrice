@@ -1,4 +1,4 @@
-/*{
+{
   "name": "Calculatrice Scientifique",
   "short_name": "Calculatrice",
   "start_url": "./index.html",
@@ -19,4 +19,3 @@
     }
   ]
 }
-*/
