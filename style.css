@@ -1,110 +1,183 @@
-/* RESET */
-* {
+/* ===================== Global ===================== */
+body, html {
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
-}
-
-html, body {
   width: 100%;
   height: 100%;
-  background: #121212;
   font-family: Arial, sans-serif;
-  overflow: hidden;
+  background: #1e1e1e;
 }
 
-/* CONTENEUR PRINCIPAL */
+/* ===================== Container ===================== */
 .container {
-  display: flex;
-  width: 100vw;
-  height: 100vh;
-}
-
-/* CALCULATRICE */
-.calculator {
-  background: #2b2b2b;
-  width: 360px;
-  padding: 12px;
+  width: 95%;
+  max-width: 450px;
+  margin: 20px auto;
+  padding: 10px;
   display: flex;
   flex-direction: column;
+  align-items: center;
+  gap: 15px;
+}
+
+/* ===================== Calculatrice ===================== */
+.calculator {
+  width: 100%;
+  max-height: 600px; /* limite la hauteur sur grand écran */
+  padding: 20px;
   border-radius: 12px;
+  background: #2f2f2f;
+  box-shadow: 0 8px 15px rgba(0,0,0,0.7);
+  overflow-y: auto; /* scroll si trop grand */
 }
 
-/* ÉCRAN */
-.screen {
-  background: #cfdac8;
-  color: #000;
-  font-size: 28px;
-  padding: 12px;
-  margin-bottom: 10px;
-  text-align: right;
+/* ===================== Écran ===================== */
+#screen {
+  width: 100%;
+  height: 55px;
+  font-size: 22px;
+  padding: 8px;
+  margin-bottom: 15px;
   border-radius: 6px;
+  border: 2px solid #6b7d66;
+  background: #c7d6c1;
+  text-align: right;
+  font-weight: bold;
+  box-shadow: inset 0 2px 3px rgba(0,0,0,0.3);
 }
 
-/* MODE DEG / RAD */
+/* ===================== Mode DEG/RAD ===================== */
 .mode {
   display: flex;
-  gap: 8px;
+  justify-content: space-between;
   margin-bottom: 10px;
 }
 
 .mode button {
-  flex: 1;
-  padding: 8px;
-  border: none;
-  border-radius: 6px;
+  width: 48%;
+  padding: 10px 0;
   background: #444;
-  color: #fff;
+  color: #eee;
+  border: 1px solid #222;
+  font-weight: bold;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
 }
 
-/* BOUTONS */
+.mode button.active {
+  background: #00c853;
+  color: #000;
+  box-shadow:
+    0 0 6px #00e676,
+    inset 0 0 4px rgba(255,255,255,0.8);
+  border-color: #00c853;
+}
+
+/* ===================== Boutons ===================== */
 .buttons {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 8px;
+  gap: 6px;
 }
 
-button {
-  padding: 14px;
-  font-size: 16px;
+.buttons button {
+  aspect-ratio: 1 / 1;
+  font-size: 1.3em;
+  border-radius: 8px;
+  background: #3a3a3a;
+  color: #f1f1f1;
+  border: 1px solid #1b1b1b;
+  font-weight: bold;
+  cursor: pointer;
+  transition: transform 0.1s ease;
+}
+
+.buttons button:active {
+  transform: translateY(2px);
+}
+
+/* Couleurs spéciales */
+button[onclick="calculate()"] { background: #1976d2; color: white; }
+button[onclick="clearAll()"] { background: #b71c1c; color: white; }
+button[onclick="clearLast()"] { background: #6d4c41; color: white; }
+
+/* ===================== Historique ===================== */
+.history-panel {
+  width: 100%;
+  max-height: 200px;
+  overflow-y: auto;
+  background: #262626;
+  border: 1px solid #111;
+  border-radius: 6px;
+  padding: 10px;
+}
+
+.history-panel h3 {
+  color: #cfd8dc;
+  text-align: center;
+  margin: 0 0 5px 0;
+}
+
+.history-panel ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.history-panel li {
+  color: #e0e0e0;
+  padding: 6px;
+  border-bottom: 1px solid #333;
+  cursor: pointer;
+}
+
+.history-panel li:hover {
+  background: #37474f;
+}
+
+/* ===================== Toggle Historique ===================== */
+.history-toggle {
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.history-toggle button {
+  padding: 10px 20px;
+  font-size: 1em;
+  background: #1976d2;
+  color: white;
   border: none;
   border-radius: 6px;
-  background: #3a3a3a;
-  color: #fff;
+  cursor: pointer;
 }
 
-button:active {
-  background: #555;
+.history-toggle button:active {
+  transform: translateY(1px);
 }
 
-/* HISTORIQUE */
-.history-panel {
-  flex: 1;
-  background: #1a1a1a;
-  color: #fff;
-  padding: 10px;
-  overflow-y: auto;
-}
-
-/* ========================= */
-/* 📱 MODE MOBILE (PLEIN ÉCRAN) */
-/* ========================= */
-
-@media (max-width: 768px) {
-
-  .container {
-    flex-direction: column;
-    width: 100vw;
-    height: 100vh;
+/* ===================== Mobile / Responsive ===================== */
+@media (max-width: 400px) {
+  #screen {
+    height: 50px;
+    font-size: 20px;
   }
 
   .calculator {
-    width: 100vw;
-    height: 100vh;
-    border-radius: 0;
+    padding: 15px;
   }
 
-  .history-panel {
-    display: none;
+  .buttons button {
+    font-size: 1.2em;
+  }
+}
+
+@media (max-width: 320px) {
+  #screen {
+    font-size: 18px;
+  }
+
+  .buttons button {
+    font-size: 1.1em;
   }
 }
