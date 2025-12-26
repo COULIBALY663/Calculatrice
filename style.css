@@ -73,7 +73,7 @@ body {
  /* HISTORIQUE – correction finale */
 .history-panel,
 .history-panel * {
-  color: #000000 !important;          /* texte noir pour tout l’historique */
+  color: black !important;          /* texte noir pour tout l’historique */
 }
 
 .history-panel {
