@@ -1,126 +1,82 @@
-// ===== SERVICE WORKER =====
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => {
-    navigator.serviceWorker.register('/service-worker.js')
-      .then(reg => console.log('SW enregistré:', reg))
-      .catch(err => console.log('Erreur SW:', err));
-  });
-}
-
-// ===== VARIABLES =====
 let screen = document.getElementById("screen");
-let historyList = document.getElementById("historyList");
-
+let historyBox = document.getElementById("screenHistory");
 let mode = "DEG";
-const PI = Math.PI;
-let ANS = 0;
+let expression = "";
 let history = [];
-let resetScreen = false;
-let expressionInternal = "";
+const PI = Math.PI;
 
-// ===== AJOUT CARACTÈRE =====
-function append(value){
-  if(resetScreen){ screen.textContent=""; expressionInternal=""; resetScreen=false; }
-  let lastChar = expressionInternal.slice(-1);
-  if(value==="(" && lastChar && /[0-9)π]/.test(lastChar)){ screen.textContent+="×"; expressionInternal+="*"; }
-  if(screen.textContent==="0") screen.textContent="";
-  screen.textContent += value;
-  expressionInternal += value;
+function append(v) {
+  if (screen.value === "0") screen.value = "";
+  screen.value += v;
+  expression += v;
 }
 
-// ===== CLEAR =====
-function clearAll(){ screen.textContent="0"; expressionInternal=""; resetScreen=false; }
-function clearLast(){
-  if(resetScreen) return;
-  screen.textContent = screen.textContent.slice(0,-1);
-  expressionInternal = expressionInternal.slice(0,-1);
-  if(screen.textContent===""){ screen.textContent="0"; expressionInternal=""; }
+function clearAll() {
+  screen.value = "0";
+  expression = "";
 }
 
-// ===== MODE DEG / RAD =====
-function setMode(m){
-  mode=m;
-  document.getElementById("btnDEG").classList.remove("active");
-  document.getElementById("btnRAD").classList.remove("active");
-  document.getElementById(m==="DEG"?"btnDEG":"btnRAD").classList.add("active");
+function clearLast() {
+  screen.value = screen.value.slice(0, -1) || "0";
+  expression = expression.slice(0, -1);
 }
 
-// ===== CALCUL =====
-function calculate(){
-  try{
-    let expr = expressionInternal.replace(/π/g, PI).replace(/\^/g,"**");
-    let openParens = (expr.match(/\(/g)||[]).length;
-    let closeParens = (expr.match(/\)/g)||[]).length;
-    if(openParens>closeParens) expr += ")".repeat(openParens-closeParens);
-    let result = Function('"use strict"; return ('+expr+')')();
-    if(!isFinite(result)) throw "Erreur";
-    if(Math.abs(result)<1e-10) result=0;
-    result = parseFloat(result.toFixed(10));
-    ANS=result;
-    history.push(`${screen.textContent} = ${result}`);
-    if(history.length>20) history.shift();
-    afficherHistorique();
-    screen.textContent=result;
-    expressionInternal=result.toString();
-    resetScreen=true;
-  }catch{
-    screen.textContent="Erreur";
-    expressionInternal="";
-    resetScreen=true;
+function setMode(m) {
+  mode = m;
+  btnDEG.classList.remove("active");
+  btnRAD.classList.remove("active");
+  document.getElementById("btn" + m).classList.add("active");
+}
+
+function insertSqrt() {
+  append("√(");
+  expression = expression.replace("√(", "Math.sqrt(");
+}
+
+function sin(){ addTrig("sin"); }
+function cos(){ addTrig("cos"); }
+function tan(){ addTrig("tan"); }
+
+function addTrig(t) {
+  append(t + "(");
+  expression += mode === "DEG"
+    ? `Math.${t}(Math.PI/180*`
+    : `Math.${t}(`;
+}
+
+function log(){ append("log("); expression += "Math.log10("; }
+function ln(){ append("ln("); expression += "Math.log("; }
+
+function insertPi() {
+  append("π");
+  expression += PI;
+}
+
+function appendExponent() {
+  append("^");
+  expression += "**";
+}
+
+function calculate() {
+  try {
+    let result = eval(expression);
+    history.push(`${screen.value} = ${result}`);
+    updateHistory();
+    screen.value = result;
+    expression = result.toString();
+  } catch {
+    screen.value = "Erreur";
+    expression = "";
   }
 }
 
-// ===== π =====
-function insertPi(){ append("π"); }
-
-// ===== √ =====
-function insertSqrt(){
-  if(resetScreen){ screen.textContent=""; expressionInternal=""; resetScreen=false; }
-  let lastChar = expressionInternal.slice(-1);
-  if(lastChar && /[0-9)π]/.test(lastChar)){ screen.textContent+="×"; expressionInternal+="*"; }
-  if(screen.textContent==="0") screen.textContent="";
-  screen.textContent+="√(";
-  expressionInternal+="Math.sqrt(";
-}
-
-// ===== FONCTIONS =====
-function sin(){ addFunc("sin"); }
-function cos(){ addFunc("cos"); }
-function tan(){ addFunc("tan"); }
-function ln(){ addFunc("ln"); }
-function log(){ addFunc("log"); }
-
-function addFunc(func){
-  if(resetScreen){ screen.textContent=""; expressionInternal=""; resetScreen=false; }
-  let lastChar = expressionInternal.slice(-1);
-  if(lastChar && /[0-9)π]/.test(lastChar)){ screen.textContent+="×"; expressionInternal+="*"; }
-  if(screen.textContent==="0") screen.textContent="";
-  screen.textContent+=func+"(";
-  switch(func){
-    case "sin": expressionInternal += mode==="DEG"?`Math.sin(Math.PI/180*`:`Math.sin(`; break;
-    case "cos": expressionInternal += mode==="DEG"?`Math.cos(Math.PI/180*`:`Math.cos(`; break;
-    case "tan": expressionInternal += mode==="DEG"?`Math.tan(Math.PI/180*`:`Math.tan(`; break;
-    case "ln": expressionInternal+="Math.log("; break;
-    case "log": expressionInternal+="Math.log10("; break;
-  }
-}
-
-// ===== EXPOSANT =====
-function appendExponent(){ append("^"); }
-
-// ===== ANS =====
-function insertANS(){ append(ANS); }
-
-// ===== HISTORIQUE =====
-function afficherHistorique(){
-  historyList.innerHTML="";
-  history.slice().reverse().forEach(item=>{
-    let li = document.createElement("li");
-    li.textContent=item;
-    li.onclick=()=>{ let res=item.split("=").pop().trim(); screen.textContent=res; expressionInternal=res; resetScreen=true; };
-    historyList.appendChild(li);
+function updateHistory() {
+  historyBox.innerHTML = "";
+  history.slice(-3).forEach(h => {
+    let div = document.createElement("div");
+    div.textContent = h;
+    historyBox.appendChild(div);
   });
 }
 
-// ===== MODE PAR DÉFAUT =====
 setMode("DEG");
