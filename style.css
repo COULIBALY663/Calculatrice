@@ -12,21 +12,20 @@ html, body {
   background: #e5e7eb;
 }
 
-/* ===== CONTAINER GLOBAL ===== */
-.container {
-  display: flex;
+/* ===== LAYOUT GLOBAL (PAS container !) ===== */
+.app-layout {
   width: 100%;
-  height: 100%;
+  min-height: 100vh;
 }
 
 /* ===== CALCULATRICE ===== */
 .calculator {
-  flex: 1;
   background: #f9fafb;
   padding: 14px;
   display: flex;
   flex-direction: column;
-  border-right: 2px solid #111827;
+  height: 100%;
+  border-radius: 16px;
 }
 
 /* ===== ÉCRAN ===== */
@@ -96,14 +95,14 @@ html, body {
 
 /* ===== HISTORIQUE ===== */
 .history-panel {
-  width: 320px;
   background: #ffffff;
   padding: 12px;
   overflow-y: auto;
-  border-left: 2px solid #111827;
+  border-radius: 16px;
+  height: 100%;
 }
 
-.history-panel h3 {
+.history-panel h5 {
   text-align: center;
   margin-bottom: 10px;
   font-weight: bold;
@@ -121,21 +120,18 @@ html, body {
   background: #e0e0e0;
 }
 
-/* ===== MOBILE ===== */
+/* ===== MOBILE (PLEIN ÉCRAN) ===== */
 @media (max-width: 768px) {
-
-  .container {
-    flex-direction: column;
-  }
-
   .calculator {
-    height: 70vh;
+    min-height: 70vh;
   }
 
   .history-panel {
-    width: 100%;
-    height: 30vh;
-    border-left: none;
-    border-top: 2px solid #111827;
+    min-height: 30vh;
+  }
+
+  .buttons button {
+    height: 56px;
+    font-size: 18px;
   }
 }

@@ -205,11 +205,20 @@ function addFunc(func){
         ? "Math.cos(Math.PI/180*"
         : "Math.cos(";
       break;
-    case "tan":
-      expressionInternal += mode === "DEG"
-        ? "Math.tan(Math.PI/180*"
-        : "Math.tan(";
-      break;
+   case "tan":
+  if (mode === "DEG") {
+    expressionInternal += `
+      (function(a){
+        if (Math.abs((a % 180) - 90) < 1e-10) {
+          throw "Erreur";
+        }
+        return Math.tan(Math.PI / 180 * a);
+      })(`;
+  } else {
+    expressionInternal += "Math.tan(";
+  }
+  break;
+
     case "ln":
       expressionInternal += "Math.log(";
       break;
