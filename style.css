@@ -1,106 +1,141 @@
 * {
   box-sizing: border-box;
-}
-
-body {
   margin: 0;
+  padding: 0;
+}
+
+/* ===== BASE ===== */
+html, body {
+  width: 100%;
+  height: 100%;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-  background: #e5e7eb; /* gris clair mat */
+  background: #e5e7eb;
 }
 
-/* CONTAINER */
+/* ===== CONTAINER GLOBAL ===== */
+.container {
+  display: flex;
+  width: 100%;
+  height: 100%;
+}
+
+/* ===== CALCULATRICE ===== */
 .calculator {
+  flex: 1;
   background: #f9fafb;
-  border-radius: 16px;
-  padding: 12px;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  border-right: 2px solid #111827;
 }
 
-/* ÉCRAN */
+/* ===== ÉCRAN ===== */
 .screen {
-  height: 80px;
+  min-height: 80px;
   background: #ffffff;
-  color: #000000;
+  color: #000;
   font-size: 34px;
   font-weight: 700;
   text-align: right;
   padding: 14px;
   border-radius: 12px;
   border: 2px solid #111827;
+  margin-bottom: 10px;
 }
 
-/* GRILLE */
-.d-grid.gap-2 {
+/* ===== MODE ===== */
+.mode {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.mode button {
+  flex: 1;
+  padding: 10px;
+  border-radius: 10px;
+  font-weight: 700;
+  background: #111827;
+  color: #fff;
+  border: none;
+}
+
+.mode button.active {
+  background: #fde047;
+  color: #000;
+}
+
+/* ===== BOUTONS ===== */
+.buttons {
+  flex: 1;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 10px;
 }
 
-/* BOUTONS */
 .buttons button {
-  height: 60px;
+  height: 64px;
   font-size: 20px;
   font-weight: 600;
   border-radius: 12px;
   border: 2px solid #111827;
   background: #ffffff;
-  color: #000000;
+  color: #000;
 }
 
-/* ACTION */
 .buttons button:active {
   background: #d1d5db;
 }
 
-/* OPÉRATEURS */
+/* ===== OPERATEURS ===== */
 .buttons button:nth-child(4n),
 .buttons button:last-child {
-  background: #fde047; /* jaune lisible soleil */
+  background: #fde047;
   border-color: #ca8a04;
-  color: #000;
 }
 
-/* BOUTON MODE */
-#btnMode {
-  background: #111827;
-  color: #ffffff;
-  border-radius: 10px;
-  font-weight: 700;
-}
-
-/* HISTORIQUE */
-
- /* HISTORIQUE – correction finale */
-.history-panel,
-.history-panel * {
-  color: #000000 !important;          /* texte noir pour tout l’historique */
-}
-
+/* ===== HISTORIQUE ===== */
 .history-panel {
-  background-color: #ffffff !important;
-  width: 340px;
-  max-width: 95%;
-  max-height: 250px;
-  overflow-y: auto;
+  width: 320px;
+  background: #ffffff;
   padding: 12px;
-  border-radius: 12px;
-  margin-top: 15px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  overflow-y: auto;
+  border-left: 2px solid #111827;
 }
 
-.history-panel h5 {
+.history-panel h3 {
+  text-align: center;
+  margin-bottom: 10px;
   font-weight: bold;
-  margin-bottom: 8px;
 }
 
 .history-panel li {
   padding: 6px 8px;
+  margin-bottom: 5px;
   border-radius: 6px;
-  margin-bottom: 4px;
-  background-color: #f1f1f1 !important;
+  background: #f1f1f1;
   cursor: pointer;
 }
 
 .history-panel li:hover {
-  background-color: #e0e0e0 !important;
+  background: #e0e0e0;
+}
+
+/* ===== MOBILE ===== */
+@media (max-width: 768px) {
+
+  .container {
+    flex-direction: column;
+  }
+
+  .calculator {
+    height: 70vh;
+  }
+
+  .history-panel {
+    width: 100%;
+    height: 30vh;
+    border-left: none;
+    border-top: 2px solid #111827;
+  }
 }
