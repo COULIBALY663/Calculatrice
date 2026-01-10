@@ -7,7 +7,7 @@
 /* ===== BASE ===== */
 html, body {
   width: 100%;
-  height: 100%;
+  height: 120%;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
   background: #e5e7eb;
 }
