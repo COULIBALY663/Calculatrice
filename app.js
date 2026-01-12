@@ -273,3 +273,15 @@ function afficherHistorique(){
     historyList.appendChild(li);
   });
 }
+const toggleBtn = document.getElementById("toggleHistory");
+const historyPanel = document.querySelector(".history-panel");
+
+if (toggleBtn && historyPanel) {
+  toggleBtn.addEventListener("click", () => {
+    historyPanel.classList.toggle("show");
+
+    toggleBtn.textContent = historyPanel.classList.contains("show")
+      ? "❌ Cacher l’historique"
+      : "📜 Afficher l’historique";
+  });
+}
