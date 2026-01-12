@@ -11,6 +11,7 @@ html, body {
   height: 100%;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
   background: #1f2933;
+  overflow: hidden; /* PAS DE SCROLL GLOBAL */
 }
 
 /* ================= CALCULATRICE ================= */
@@ -61,7 +62,7 @@ html, body {
   flex: 1;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  grid-auto-rows: minmax(42px, 1fr);
+  grid-auto-rows: minmax(40px, 1fr);
   gap: 6px;
 }
 
@@ -91,7 +92,6 @@ html, body {
   background: #ffffff;
   padding: 12px;
   border-radius: 16px;
-  height: 100%;
   overflow-y: auto;
 }
 
@@ -114,30 +114,25 @@ html, body {
 }
 
 /* ================================================= */
-/* ================= MOBILE (PLEIN ÉCRAN RÉEL) ===== */
+/* ================= MOBILE – PLEIN ÉCRAN RÉEL ===== */
 /* ================================================= */
 @media (max-width: 768px) {
 
-  html, body {
-    height: 100%;
-    overflow: hidden; /* PAS DE SCROLL GLOBAL */
-  }
-
   .calculator {
-    height: 100dvh;      /* 🔥 PLEIN ÉCRAN RÉEL */
-    max-height: 100dvh;
+    position: fixed;   /* 🔥 BLOQUE LES BARRES DU NAVIGATEUR */
+    inset: 0;
+    width: 100vw;
+    height: 100dvh;    /* 🔥 vrai viewport mobile */
     border-radius: 0;
   }
 
-  /* Historique caché par défaut */
+  /* Historique masqué par défaut */
   .history-panel {
     display: none;
-    margin-top: 10px;
     max-height: 40dvh;
-    overflow-y: auto;
   }
 
-  /* Historique visible quand activé */
+  /* Historique visible */
   .history-panel.show {
     display: block;
   }
