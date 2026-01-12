@@ -29,7 +29,7 @@ html, body {
   min-height: 56px;
   background: rgb(199, 227, 255);
   color: #000;
-  font-size: clamp(18px, 4vw, 28px);
+  font-size: clamp(20px, 5vw, 34px);
   font-weight: 700;
   text-align: right;
   padding: 10px;
@@ -58,10 +58,10 @@ html, body {
 
 /* ================= BOUTONS ================= */
 .buttons {
-  flex: 1; /* prend tout l’espace restant */
+  flex: 1;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  grid-auto-rows: minmax(50px, 1fr);
+  grid-auto-rows: minmax(42px, 1fr);
   gap: 6px;
 }
 
@@ -114,33 +114,30 @@ html, body {
 }
 
 /* ================================================= */
-/* ================= MOBILE (TELEPHONE) ============ */
+/* ================= MOBILE (PLEIN ÉCRAN RÉEL) ===== */
 /* ================================================= */
 @media (max-width: 768px) {
 
-  body {
-    overflow-y: auto; /* scroll autorisé */
+  html, body {
+    height: 100%;
+    overflow: hidden; /* PAS DE SCROLL GLOBAL */
   }
 
   .calculator {
-    height: 100vh;      /* PLEIN ÉCRAN */
+    height: 100dvh;      /* 🔥 PLEIN ÉCRAN RÉEL */
+    max-height: 100dvh;
     border-radius: 0;
   }
 
-  .history-panel {
-    margin-top: 10px;
-    height: auto;       /* EN DESSOUS */
-    max-height: 40vh;   /* historique limité */
-    overflow-y: auto;
-    border-radius: 12px;
-  }
-}
-/* ===== HISTORIQUE MASQUÉ PAR DÉFAUT SUR MOBILE ===== */
-@media (max-width: 768px) {
+  /* Historique caché par défaut */
   .history-panel {
     display: none;
+    margin-top: 10px;
+    max-height: 40dvh;
+    overflow-y: auto;
   }
 
+  /* Historique visible quand activé */
   .history-panel.show {
     display: block;
   }
