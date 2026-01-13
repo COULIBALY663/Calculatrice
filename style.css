@@ -137,3 +137,45 @@ html, body {
     display: block;
   }
 }
+/* ================================================= */
+/* ============ AJUSTEMENT TAILLE MOBILE ============ */
+/* ================================================= */
+@media (max-width: 768px) {
+
+  /* réduire padding global */
+  .calculator {
+    padding: 6px;
+  }
+
+  /* écran plus compact */
+  .screen {
+    min-height: 48px;
+    font-size: clamp(16px, 4vw, 24px);
+    margin-bottom: 4px;
+    padding: 8px;
+  }
+
+  /* barre du haut plus compacte */
+  .top-bar {
+    margin-bottom: 4px;
+    gap: 4px;
+  }
+
+  .mode-btn,
+  .history-toggle,
+  .label {
+    font-size: 13px;
+  }
+
+  /* GRILLE DES BOUTONS */
+  .buttons {
+    gap: 5px;
+    grid-auto-rows: minmax(36px, 1fr);
+  }
+
+  .buttons button {
+    font-size: clamp(13px, 2.8vw, 17px);
+    padding: 4px;
+    border-radius: 8px;
+  }
+}
